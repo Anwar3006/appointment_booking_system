@@ -1,5 +1,3 @@
-import { Button } from "../ui/button";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -8,6 +6,8 @@ import CustomFormField from "../CustomFormField";
 import { Form } from "../ui/form";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
+import { UserServiceEnv } from "@/actions/backendtype.config";
+import { useNavigate } from "react-router-dom";
 
 export enum FormFieldTypes {
   INPUT = "input",
@@ -21,7 +21,8 @@ export enum FormFieldTypes {
 
 const AuthCard = () => {
   const [isLoading, setIsLoading] = useState(false);
-  // 1. Define your form.
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -31,11 +32,21 @@ const AuthCard = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof UserFormValidation>) {
+  const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
     setIsLoading(true);
-    console.log(values);
-  }
+    const { name, email, phone } = values;
+    try {
+      const user = await UserServiceEnv?.createUser({ name, email, phone });
+
+      //set the user id in the url and navigate to /patient
+      if (user) {
+        console.log(user);
+        navigate(`/patient/${user.$id}/register`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center gap-5 w-full">

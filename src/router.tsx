@@ -10,6 +10,9 @@ import Error404 from "./components/Error404";
 // import Error404 from "@/components/404";
 
 const Auth = React.lazy(() => import("@/pages/Auth"));
+const AppointmentBooking = React.lazy(
+  () => import("@/pages/AppointmentBooking")
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +22,15 @@ const router = createBrowserRouter(
         element={
           <React.Suspense fallback={<RouteLoading />}>
             <Auth />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="patient/:userId/register"
+        element={
+          <React.Suspense fallback={<RouteLoading />}>
+            <AppointmentBooking />
           </React.Suspense>
         }
       />

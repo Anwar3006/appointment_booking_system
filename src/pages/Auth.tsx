@@ -1,5 +1,4 @@
 import AuthCard from "@/components/AuthPage/AuthCard";
-import React from "react";
 
 const Auth = () => {
   return (
