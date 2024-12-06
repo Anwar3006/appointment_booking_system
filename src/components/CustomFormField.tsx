@@ -97,7 +97,7 @@ const RenderField = ({
       return (
         <div className="flex rounded-md border border-dark-500 bg-dark-400">
           <img
-            src="/publicMedia/assets/icons/calendar.svg"
+            src="/assets/icons/calendar.svg"
             alt="calender"
             height={24}
             width={24}
@@ -145,6 +145,7 @@ const RenderField = ({
             {...field}
             className="shad-textArea"
             disabled={props.disabled}
+            rows={4}
           />
         </FormControl>
       );

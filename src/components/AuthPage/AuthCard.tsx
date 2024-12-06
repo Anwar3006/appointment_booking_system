@@ -40,7 +40,6 @@ const AuthCard = () => {
 
       //set the user id in the url and navigate to /patient
       if (user) {
-        console.log(user);
         navigate(`/patient/${user.$id}/register`);
       }
     } catch (error) {

@@ -1,3 +1,5 @@
+import { AppwritePatientService } from "./patient/AppwritePatientService";
+import PatientServiceInterface from "./patient/PatientServiceInterface";
 import { AppwriteUserService } from "./user/AppwriteUserService";
 import { UserService } from "./user/UserInterface";
 
@@ -8,3 +10,6 @@ const BACKEND_TYPE = "appwrite"; // or "springboot"
 
 export const UserServiceEnv: UserService | null =
   BACKEND_TYPE === "appwrite" ? AppwriteUserService : null;
+
+export const PatientService: PatientServiceInterface | null =
+  BACKEND_TYPE === "appwrite" ? AppwritePatientService : null;

@@ -2,6 +2,7 @@ import { UserService } from "./UserInterface";
 import { ID, Query } from "node-appwrite";
 import { parseStringify } from "@/lib/utils";
 import axiosClient from "../axios.config";
+import { users } from "@/lib/AppwriteConfig/CustomClient";
 
 export const AppwriteUserService: UserService = {
   /**
@@ -24,25 +25,17 @@ export const AppwriteUserService: UserService = {
     const { name, email, phone } = userData;
     try {
       // Because of Safari issue with UserAgent
-      //   const user = await users.create(
-      //     ID.unique(),
-      //     email,
-      //     phone as string,
-      //     undefined,
-      //     name
-      //   );
+      const user = await users.create(
+        ID.unique(),
+        email,
+        phone as string,
+        undefined,
+        name
+      );
 
-      const response = await axiosClient.post("/users", {
-        userId: ID.unique(),
-        email: email,
-        phone: phone,
-        password: undefined,
-        name: name,
-      });
-
-      return response.data;
+      return user;
     } catch (error: any) {
-      if (error?.response?.status === 409) {
+      if (error?.code === 409) {
         const user = await this.getUsersByQueryString(email);
         return user;
       }

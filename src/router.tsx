@@ -13,6 +13,9 @@ const Auth = React.lazy(() => import("@/pages/Auth"));
 const AppointmentBooking = React.lazy(
   () => import("@/pages/AppointmentBooking")
 );
+const PatientRegistration = React.lazy(
+  () => import("@/pages/PatientRegistration")
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +31,15 @@ const router = createBrowserRouter(
 
       <Route
         path="patient/:userId/register"
+        element={
+          <React.Suspense fallback={<RouteLoading />}>
+            <PatientRegistration />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="patient/:userId/new-appointment/:patientId"
         element={
           <React.Suspense fallback={<RouteLoading />}>
             <AppointmentBooking />
