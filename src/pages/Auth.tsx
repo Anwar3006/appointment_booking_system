@@ -9,6 +9,7 @@ const Auth = () => {
         <div className="flex items-center justify-start w-full">
           <img src="/assets/icons/logo-full.svg" alt="h-10 w-fit" />
         </div>
+
         {/* Auth Form */}
         <AuthCard />
 

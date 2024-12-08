@@ -21,11 +21,11 @@ const PatientRegistration = () => {
   }, [userId]);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[860px] flex-1 flex-col py-8 px-10">
           {/* Logo */}
-          <div className="flex items-center justify-start w-full">
+          <div className="flex items-center justify-start w-full mb-12">
             <img
               src="/assets/icons/logo-full.svg"
               alt="Logo"
@@ -62,7 +62,7 @@ const PatientRegistration = () => {
       <img
         src="/assets/images/register-img.png"
         alt="Registration"
-        className="max-w-[400px] object-cover h-full"
+        className="max-w-[400px] object-cover hidden h-full md:block"
       />
       {/* </div> */}
     </div>

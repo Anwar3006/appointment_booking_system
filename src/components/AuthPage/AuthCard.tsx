@@ -7,7 +7,9 @@ import { Form } from "../ui/form";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { UserServiceEnv } from "@/actions/backendtype.config";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Modal from "../Modal";
+import { AppwritePatientService } from "@/actions/patient/AppwritePatientService";
 
 export enum FormFieldTypes {
   INPUT = "input",
@@ -21,7 +23,18 @@ export enum FormFieldTypes {
 
 const AuthCard = () => {
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const getQueryParams = (query: string) => {
+    const url = new URLSearchParams(query);
+    return {
+      admin: url.get("admin"),
+    };
+  };
+
+  const { admin } = getQueryParams(location.search);
 
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
@@ -36,11 +49,17 @@ const AuthCard = () => {
     setIsLoading(true);
     const { name, email, phone } = values;
     try {
+      //check if patient with email already exists
+      const patient = await AppwritePatientService.getPatientCardByEmail(email);
+      if (patient) {
+        navigate(`/patients/${patient.userId}/new-appointment`);
+        return;
+      }
       const user = await UserServiceEnv?.createUser({ name, email, phone });
 
       //set the user id in the url and navigate to /patient
       if (user) {
-        navigate(`/patient/${user.$id}/register`);
+        navigate(`/patients/${user.$id}/register`);
       }
     } catch (error) {
       console.log(error);
@@ -87,7 +106,21 @@ const AuthCard = () => {
             placeholder="(233) 123-4567"
           />
 
-          <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
+          <div className="flex items-center justify-between gap-6">
+            <div className="w-2/3">
+              <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
+            </div>
+
+            <div>
+              <Link
+                to="/auth/?admin=true"
+                className="text-sm text-emerald-600 rounded-lg bg-white/70 px-4 py-2"
+              >
+                Admin
+              </Link>
+              {admin && <Modal />}
+            </div>
+          </div>
         </form>
       </Form>
     </div>

@@ -42,45 +42,45 @@ export const IdentificationTypes = [
 
 export const Doctors = [
   {
-    image: "/publicMedia/assets/images/dr-green.png",
+    image: "/assets/images/dr-green.png",
     name: "John Green",
   },
   {
-    image: "/publicMedia/assets/images/dr-cameron.png",
+    image: "/assets/images/dr-cameron.png",
     name: "Leila Cameron",
   },
   {
-    image: "/publicMedia/assets/images/dr-livingston.png",
+    image: "/assets/images/dr-livingston.png",
     name: "David Livingston",
   },
   {
-    image: "/publicMedia/assets/images/dr-peter.png",
+    image: "/assets/images/dr-peter.png",
     name: "Evan Peter",
   },
   {
-    image: "/publicMedia/assets/images/dr-powell.png",
+    image: "/assets/images/dr-powell.png",
     name: "Jane Powell",
   },
   {
-    image: "/publicMedia/assets/images/dr-remirez.png",
+    image: "/assets/images/dr-remirez.png",
     name: "Alex Ramirez",
   },
   {
-    image: "/publicMedia/assets/images/dr-lee.png",
+    image: "/assets/images/dr-lee.png",
     name: "Jasmine Lee",
   },
   {
-    image: "/publicMedia/assets/images/dr-cruz.png",
+    image: "/assets/images/dr-cruz.png",
     name: "Alyana Cruz",
   },
   {
-    image: "/publicMedia/assets/images/dr-sharma.png",
+    image: "/assets/images/dr-sharma.png",
     name: "Hardik Sharma",
   },
 ];
 
 export const StatusIcon = {
-  scheduled: "/publicMedia/assets/icons/check.svg",
-  pending: "/publicMedia/assets/icons/pending.svg",
-  cancelled: "/publicMedia/assets/icons/cancelled.svg",
+  scheduled: "/assets/icons/check.svg",
+  pending: "/assets/icons/pending.svg",
+  cancelled: "/assets/icons/cancelled.svg",
 };

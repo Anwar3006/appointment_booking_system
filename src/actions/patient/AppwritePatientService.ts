@@ -1,19 +1,27 @@
-import { ID } from "node-appwrite";
-import axiosClient from "../axios.config";
+import { ID, Query } from "node-appwrite";
+
 import PatientServiceInterface from "./PatientServiceInterface";
 import { InputFile } from "node-appwrite/file";
 import { database, storage } from "@/lib/AppwriteConfig/CustomClient";
 import { parseStringify } from "@/lib/utils";
 
+const BUCKET_ID = import.meta.env.VITE_PUBLIC_BUCKET_ID;
+const PUBLIC_ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
+const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+
+const DATABASE_ID = import.meta.env.VITE_DATABASE_ID;
+const PATIENT_COLLECTION_ID = import.meta.env.VITE_PATIENT_COLLECTION_ID;
+
 export const AppwritePatientService: PatientServiceInterface = {
   async createPatientCard({ identificationDocument, ...patient }) {
     try {
-      let file;
+      //check if patient already exists, if yes then return it
+      const patientExists = await this.getPatientCardByEmail(patient.email);
+      if (patientExists) {
+        return parseStringify(patientExists);
+      }
 
-      // console.log(patient);
-      const BUCKET_ID = import.meta.env.VITE_PUBLIC_BUCKET_ID;
-      const PUBLIC_ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
-      const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+      let file;
 
       if (identificationDocument) {
         const inputFile = InputFile.fromBuffer(
@@ -25,8 +33,8 @@ export const AppwritePatientService: PatientServiceInterface = {
       }
 
       const newPatientCard = await database.createDocument(
-        import.meta.env.VITE_DATABASE_ID,
-        import.meta.env.VITE_PATIENT_COLLECTION_ID,
+        DATABASE_ID,
+        PATIENT_COLLECTION_ID,
         ID.unique(),
         {
           identificationDocumentId: file?.$id || null,
@@ -42,7 +50,33 @@ export const AppwritePatientService: PatientServiceInterface = {
     }
   },
 
-  async getPateintCardById(id) {},
+  async getPatientCardById(id) {
+    try {
+      const patient = await database.listDocuments(
+        DATABASE_ID,
+        PATIENT_COLLECTION_ID,
+        [Query.equal("userId", id)]
+      );
 
-  async getPatientCardByQuery(query) {},
+      return parseStringify(patient.documents[0]);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+
+  async getPatientCardByEmail(email: string) {
+    try {
+      const patient = await database.listDocuments(
+        DATABASE_ID,
+        PATIENT_COLLECTION_ID,
+        [Query.equal("email", email)]
+      );
+
+      return parseStringify(patient.documents[0]);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
 };

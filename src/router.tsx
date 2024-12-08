@@ -16,6 +16,8 @@ const AppointmentBooking = React.lazy(
 const PatientRegistration = React.lazy(
   () => import("@/pages/PatientRegistration")
 );
+const AdminDashboard = React.lazy(() => import("@/pages/AdminDashboard"));
+const BookingSuccess = React.lazy(() => import("@/pages/BookingSuccess"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +32,7 @@ const router = createBrowserRouter(
       />
 
       <Route
-        path="patient/:userId/register"
+        path="patients/:userId/register"
         element={
           <React.Suspense fallback={<RouteLoading />}>
             <PatientRegistration />
@@ -39,10 +41,28 @@ const router = createBrowserRouter(
       />
 
       <Route
-        path="patient/:userId/new-appointment/:patientId"
+        path="patients/:userId/new-appointment"
         element={
           <React.Suspense fallback={<RouteLoading />}>
             <AppointmentBooking />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="/patients/:userId/new-appointment/:appointmentId"
+        element={
+          <React.Suspense fallback={<RouteLoading />}>
+            <BookingSuccess />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="/admin/dashboard"
+        element={
+          <React.Suspense fallback={<RouteLoading />}>
+            <AdminDashboard />
           </React.Suspense>
         }
       />

@@ -46,6 +46,7 @@ declare type CreateAppointmentParams = {
   schedule: Date;
   status: Status;
   note: string | undefined;
+  patients: string[];
 };
 
 declare type UpdateAppointmentParams = {
@@ -54,3 +55,10 @@ declare type UpdateAppointmentParams = {
   appointment: Appointment;
   type: string;
 };
+
+declare interface RecentAppointmentData {
+  scheduledCount: 0;
+  pendingCount: 0;
+  cancelledCount: 0;
+  documents: [];
+}
