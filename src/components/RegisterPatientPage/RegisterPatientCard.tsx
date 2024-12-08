@@ -9,7 +9,7 @@ import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Doctors, GenderOptions, IdentificationTypes } from "@/lib/constants";
 import { SelectItem } from "../ui/select";
-import FileUploader from "../FileUploader";
+import FileUploader from "./FileUploader";
 import SubmitButton from "../SubmitButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PatientService } from "@/actions/backendtype.config";

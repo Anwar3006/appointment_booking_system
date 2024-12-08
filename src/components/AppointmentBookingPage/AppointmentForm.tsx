@@ -30,7 +30,7 @@ const AppointmentForm = ({
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const AppointmentFormValidation = getAppointmentSchema(type);
-  // console.log(AppointmentFormValidation);
+
   // Zod Validation
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),

@@ -7,8 +7,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "./ui/alert-dialog";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
+} from "../ui/alert-dialog";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { decryptKey, encryptKey } from "@/lib/utils";
 
@@ -16,7 +16,7 @@ const Modal = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
-  const ADMIN_KEY = "123456";
+  const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
   const [open, setOpen] = useState(true);
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");

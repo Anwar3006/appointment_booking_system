@@ -8,7 +8,7 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { UserServiceEnv } from "@/actions/backendtype.config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Modal from "../Modal";
+import Modal from "./Modal";
 import { AppwritePatientService } from "@/actions/patient/AppwritePatientService";
 
 export enum FormFieldTypes {

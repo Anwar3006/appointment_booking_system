@@ -1,7 +1,7 @@
-import { database } from "@/lib/AppwriteConfig/CustomClient";
+import { database, messaging } from "@/lib/AppwriteConfig/CustomClient";
 import AppointmentServiceInterface from "./AppointmentServiceInterface";
 import { ID, Query } from "node-appwrite";
-import { parseStringify } from "@/lib/utils";
+import { formatDateTime, parseStringify } from "@/lib/utils";
 import { Navigate } from "react-router-dom";
 
 const DATABASE_ID = import.meta.env.VITE_DATABASE_ID;
@@ -93,6 +93,16 @@ export const AppwriteAppointmentService: AppointmentServiceInterface = {
       }
 
       // Send a notification to the user
+      const smsMessage = `
+        Hi, it's CarePulse,
+        ${
+          type === "scheduled"
+            ? `Your appointment has been scheduled successfully for ${
+                formatDateTime(updatedAppointment.date).dateTime
+              } with Dr. ${updatedAppointment.primaryPhysician}.`
+            : `We regret to inform you that your appointment has been cancelled. Reason: ${updatedAppointment.cancellationReason}.`
+        }`;
+      await this.sendSMSNotification(updatedAppointment.userId, smsMessage);
 
       // window.location.reload();
       Navigate({ to: "/admin/dashboard" });
@@ -100,6 +110,19 @@ export const AppwriteAppointmentService: AppointmentServiceInterface = {
     } catch (error) {
       console.log(error);
       throw error;
+    }
+  },
+
+  async sendSMSNotification(userId: string, content: string) {
+    try {
+      const message = await messaging.createSms(
+        ID.unique(),
+        content,
+        [],
+        [userId]
+      );
+    } catch (error) {
+      console.log(error);
     }
   },
 };

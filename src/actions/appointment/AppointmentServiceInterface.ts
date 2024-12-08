@@ -6,4 +6,6 @@ export default interface AppointmentServiceInterface {
   getAppointmentList: () => Promise<any>;
 
   updateAppointment: (data: UpdateAppointmentParams) => Promise<any>;
+
+  sendSMSNotification: (userId: string, content: string) => Promise<any>;
 }
