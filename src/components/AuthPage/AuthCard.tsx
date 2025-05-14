@@ -114,7 +114,7 @@ const AuthCard = () => {
             <div>
               <Link
                 to="/auth/?admin=true"
-                className="text-sm text-emerald-600 rounded-lg bg-white/70 px-4 py-2"
+                className="text-sm text-emerald-600 rounded-lg bg-white/90 px-4 py-2"
               >
                 Admin
               </Link>

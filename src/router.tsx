@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -22,6 +23,9 @@ const BookingSuccess = React.lazy(() => import("@/pages/BookingSuccess"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
+      {/* Redirect from root to /auth */}
+      <Route index element={<Navigate to="/auth" replace />} />
+
       <Route
         path="auth"
         element={

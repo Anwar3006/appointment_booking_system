@@ -2,7 +2,7 @@ import { AppwriteAppointmentService } from "@/actions/appointment/AppwriteAppoin
 import { Button } from "@/components/ui/button";
 import { Doctors } from "@/lib/constants";
 import { formatDateTime } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 const BookingSuccess = () => {

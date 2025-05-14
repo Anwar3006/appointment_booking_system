@@ -73,7 +73,12 @@ export const AppwritePatientService: PatientServiceInterface = {
         [Query.equal("email", email)]
       );
 
-      return parseStringify(patient.documents[0]);
+      console.log(patient.documents);
+      if (patient.documents && patient.documents.length > 0) {
+        return parseStringify(patient.documents[0]);
+      } else {
+        return null;
+      }
     } catch (error) {
       console.log(error);
       throw error;
